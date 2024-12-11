@@ -1,15 +1,98 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
+
 <html>
-<head>
-<title>In-ADS komponent</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<script type="text/javascript" src="https://inaadress.maaamet.ee/inaadress/js/inaadress.min.js?d=20220510"></script>
-</head>
-<body>
-<div id="InAadressDiv" style="width: 600px; height: 450px"></div>
-<script>
-var inAadress = new InAadress({"container":"InAadressDiv","mode":1,"ihist":"1993","searchLayers":["KATASTRIYKSUS","EHITISHOONE"],"defaultBaseLayer":"ALUSKAART","baseLayers":["ALUSKAART","HYBRIID","ORTOFOTO"],"mapLayers":["AADRESS","KATASTRIYKSUS"],"WMS":[],"appartment":1,"lang":"et"});
-</script>
-</body>
+  <head>
+    <title>In-ADS komponent</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      type="text/javascript"
+      src="https://inaadress.maaamet.ee/inaadress/js/inaadress.min.js?d=20220510"
+    ></script>
+    <style>
+      .page-title {
+        font-family: Inter, sans-serif;
+        font-size: 24px;
+        font-weight: 600;
+        padding-top: 2em;
+        padding-left: 8px;
+      }
+      
+      .section-title {
+        font-family: Inter, sans-serif;
+        font-size: 20px;
+        font-weight: 600;
+        padding-top: 1em;
+        padding-left: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="page-title">
+        Soojuspumba ehitusteatis
+      </h1>
+      <h3 class="section-title">
+        Aadress <span class="required">*</span>
+      </h3>
+    </div>
+    <div id="InAadressDiv" style="width: 600px; height: 450px"></div>
+
+    <script>
+     var inAadress = new InAadress({"container":"InAadressDiv","mode":1,"ihist":"1993","searchLayers":["KATASTRIYKSUS","EHITISHOONE"],"defaultBaseLayer":"ALUSKAART","baseLayers":["ALUSKAART","HYBRIID","ORTOFOTO"],"mapLayers":["AADRESS","KATASTRIYKSUS"],"WMS":[],"appartment":1,"lang":"et"});
+      document.addEventListener("addressSelected", function (e) {
+        var info = e.detail;
+        // get element with id ffd84e54-0305-4c86-9032-fce06cbea6a7
+
+        // find input field with jsname parameter that equal YPqjbf
+        // const aadress = document.querySelector('input[jsname="YPqjbf"]');
+        // console.log("aadress", aadress);
+        // set url parameter uus_aadress to info.aadress for the iframe
+        const iframe = document.querySelector("iframe[data-tally-src]");
+        if (iframe) {
+          iframe.src = iframe.src + "&aadress=" + info.aadress;
+          console.log("iframe src", iframe.src);
+          console.log(
+            "Set the embedded URL parameter aadress to",
+            info.aadress
+          );
+        }
+      });
+    </script>
+    <iframe
+      data-tally-src="https://tally.so/embed/mJVQM7?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+      loading="lazy"
+      width="100%"
+      height="1917"
+      frameborder="0"
+      marginheight="0"
+      marginwidth="0"
+      title="null"
+    ></iframe>
+    <script>
+      var d = document,
+        w = "https://tally.so/widgets/embed.js",
+        v = function () {
+          "undefined" != typeof Tally
+            ? Tally.loadEmbeds()
+            : d
+                .querySelectorAll("iframe[data-tally-src]:not([src])")
+                .forEach(function (e) {
+                  e.src = e.dataset.tallySrc;
+                });
+        };
+      if ("undefined" != typeof Tally) v();
+      else if (d.querySelector('script[src="' + w + '"]') == null) {
+        var s = d.createElement("script");
+        (s.src = w), (s.onload = v), (s.onerror = v), d.body.appendChild(s);
+      }
+    </script>
+  </body>
 </html>
